@@ -1,4 +1,6 @@
 const games = require("./games")
+ 
+
 module.exports = {
     // app.get('/api/users')
     getAllGames: (req,res) => {
@@ -28,8 +30,14 @@ module.exports = {
     // app.put('/api/users/:id')
     updateGame: (req,res) =>{
         const { id } = req.params
+        console.log(id)
+        //using spread operator to make a copy of req.body
         const editedGame = {...req.body}
+        console.log(editedGame)
         const index = games.findIndex( val => val.id === +id)
+        //using spread operator to make a copy of games at [index] and then adding the editedGame info to games[index]
+        games[index] = {...games[index],...editedGame}
+        console.log(games[index])
         res.status(200).send(games)
     },
     deleteGame: (req,res) =>{
